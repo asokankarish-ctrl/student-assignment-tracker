@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Assignment Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Student Assignment Tracker</h1>
+  <p>Keep track of your coursework and deadlines.</p>
+
+  <form id="assignment-form">
+    <h2>My assignments</h2>
+
+    <div class="assignment-summary" aria-live="polite">
+  <p>Total: <strong id="total-count">0</strong></p>
+  <p>Pending: <strong id="pending-count">0</strong></p>
+  <p>Completed: <strong id="completed-count">0</strong></p>
+    </div>
+
+    <label for="status-filter">Show assignments</label>
+
+<select id="status-filter">
+  <option value="all">All assignments</option>
+  <option value="pending">Pending</option>
+  <option value="completed">Completed</option>
+</select>
+
+    <p id="empty-message">No assignments yet. Add your first one above!</p>
+    <ul id="assignment-list"></ul>
+
+  <script src="script.js"></script>
+
+    <label for="title">Assignment name</label>
+    <input id="title" name="title" type="text" required>
+
+    <label for="subject">Subject</label>
+    <input id="subject" name="subject" type="text" required>
+
+    <label for="deadline">Deadline</label>
+    <input id="deadline" name="deadline" type="date" required>
+
+    <button type="submit">Add assignment</button>
+  </form>
+</body>
+</html>
