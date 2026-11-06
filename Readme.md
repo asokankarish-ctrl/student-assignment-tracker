@@ -13,6 +13,7 @@ deadlines, and completion status.
 - Highlight overdue unfinished assignments.
 - Save assignments between visits using localStorage.
 - Sort assignments by earliest or latest deadline.
+- Edit assignment details or cancel changes.
 
 ## Technologies
 
