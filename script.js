@@ -7,6 +7,12 @@ const totalCount = document.getElementById("total-count");
 const pendingCount = document.getElementById("pending-count");
 const completedCount = document.getElementById("completed-count");
 
+const sortOrder = document.getElementById("sort-order");
+
+sortOrder.addEventListener("change", function () {
+  renderAssignments();
+});
+
 statusFilter.addEventListener("change", function () {
   renderAssignments();
 });
@@ -95,7 +101,11 @@ completedCount.textContent = completed;
   }
 
 
-  visibleAssignments.sort(function (a, b) {
+visibleAssignments.sort(function (a, b) {
+  if (sortOrder.value === "latest") {
+    return b.deadline.localeCompare(a.deadline);
+  }
+
   return a.deadline.localeCompare(b.deadline);
 });
 
