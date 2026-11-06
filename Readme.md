@@ -12,7 +12,7 @@ deadlines, and completion status.
 - View total, pending, and completed counts.
 - Highlight overdue unfinished assignments.
 - Save assignments between visits using localStorage.
-   - Display assignments in earliest-deadline order.
+- Sort assignments by earliest or latest deadline.
 
 ## Technologies
 
