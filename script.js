@@ -6,6 +6,10 @@ const statusFilter = document.getElementById("status-filter");
 const totalCount = document.getElementById("total-count");
 const pendingCount = document.getElementById("pending-count");
 const completedCount = document.getElementById("completed-count");
+const submitButton = document.getElementById("submit-button");
+const cancelEditButton = document.getElementById("cancel-edit");
+
+let editingId = null;
 
 const sortOrder = document.getElementById("sort-order");
 
@@ -58,6 +62,18 @@ function saveAssignments() {
     alert("Your changes could not be saved. They may be lost on refresh.");
   }
 }
+
+function resetForm() {
+  editingId = null;
+  form.reset();
+  submitButton.textContent = "Add assignment";
+  cancelEditButton.hidden = true;
+}
+
+cancelEditButton.addEventListener("click", function () {
+  resetForm();
+  document.getElementById("title").focus();
+});
 
 // Display all assignments from the array.
 function renderAssignments() {
@@ -158,6 +174,23 @@ if (isOverdue) {
       renderAssignments();
     });
 
+    const editButton = document.createElement("button");
+editButton.type = "button";
+editButton.textContent = "Edit";
+
+editButton.addEventListener("click", function () {
+  editingId = assignment.id;
+
+  document.getElementById("title").value = assignment.title;
+  document.getElementById("subject").value = assignment.subject;
+  document.getElementById("deadline").value = assignment.deadline;
+
+  submitButton.textContent = "Save changes";
+  cancelEditButton.hidden = false;
+
+  document.getElementById("title").focus();
+});
+
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.textContent = "Delete";
@@ -168,11 +201,15 @@ if (isOverdue) {
         return currentAssignment.id !== assignment.id;
       });
 
+      if (editingId === assignment.id) {
+  resetForm();
+}
+
       saveAssignments();
       renderAssignments();
     });
 
-    actions.append(completeButton, deleteButton);
+    actions.append(completeButton, editButton, deleteButton);
     item.append(heading, details, actions);
     assignmentList.appendChild(item);
   });
@@ -190,20 +227,36 @@ form.addEventListener("submit", function (event) {
     return;
   }
 
-  const newAssignment = {
-    id: crypto.randomUUID(),
-    title: title,
-    subject: subject,
-    deadline: deadline,
-    completed: false
-  };
+  if (editingId !== null) {
+    const assignmentToEdit = assignments.find(function (assignment) {
+      return assignment.id === editingId;
+    });
 
-  assignments.push(newAssignment);
+    if (!assignmentToEdit) {
+      resetForm();
+      alert("This assignment no longer exists.");
+      return;
+    }
+
+    assignmentToEdit.title = title;
+    assignmentToEdit.subject = subject;
+    assignmentToEdit.deadline = deadline;
+  } else {
+    const newAssignment = {
+      id: crypto.randomUUID(),
+      title: title,
+      subject: subject,
+      deadline: deadline,
+      completed: false
+    };
+
+    assignments.push(newAssignment);
+  }
 
   saveAssignments();
   renderAssignments();
+  resetForm();
 
-  form.reset();
   document.getElementById("title").focus();
 });
 

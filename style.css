@@ -121,7 +121,7 @@ button:focus-visible {
 
 
 #status-filter,
-#sort-order  {
+#sort-order {
   width: 100%;
   padding: 12px;
   margin-bottom: 16px;
@@ -133,7 +133,7 @@ button:focus-visible {
 }
 
 #status-filter:focus-visible,
-#sort-order:focus-visible  {
+#sort-order:focus-visible {
   outline: 3px solid #2563eb;
   outline-offset: 3px;
 }
