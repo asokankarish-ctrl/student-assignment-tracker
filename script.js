@@ -94,6 +94,11 @@ completedCount.textContent = completed;
       "No assignments match this filter.";
   }
 
+
+  visibleAssignments.sort(function (a, b) {
+  return a.deadline.localeCompare(b.deadline);
+});
+
   visibleAssignments.forEach(function (assignment) {
     const item = document.createElement("li");
     item.classList.add("assignment");
